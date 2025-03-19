@@ -34,25 +34,36 @@
             color: #ff4500;
         }
 
-        /* Form layout */
         .form-group {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: nowrap;  /* Prevent wrapping */
-            overflow-x: auto;  /* Allow scrolling on smaller screens */
-            gap: 5px;
-        }
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
 
-        .form-group input {
-            width: 12%;
-            min-width: 60px;
-            padding: 6px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            text-align: center;
-            font-size: 15px;
-        }
+.form-group div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 9%;
+    min-width: 70px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+    font-size: 14px;
+}
+
 
         /* Predict button */
         button {
@@ -153,19 +164,50 @@
         <h2>Forest Fire Prediction</h2>
         <form id="predictForm">
             <div class="form-group">
-                <input type="number" id="temperature" placeholder="Temp" required>
-                <input type="number" id="rh" placeholder="RH" required>
-                <input type="number" id="ws" placeholder="Wind" required>
-                <input type="number" id="rain" placeholder="Rain" required>
-                <input type="number" id="ffmc" placeholder="FFMC" required>
-                <input type="number" id="dmc" placeholder="DMC" required>
-                <input type="number" id="dc" placeholder="DC" required>
-                <input type="number" id="isi" placeholder="ISI" required>
-                <input type="number" id="bui" placeholder="BUI" required>
-                <input type="number" id="fwi" placeholder="FWI" required>
+                <div>
+                    <label for="temperature">Temp</label>
+                    <input type="number" id="temperature" required>
+                </div>
+                <div>
+                    <label for="rh">RH</label>
+                    <input type="number" id="rh" required>
+                </div>
+                <div>
+                    <label for="ws">WS</label>
+                    <input type="number" id="ws" required>
+                </div>
+                <div>
+                    <label for="rain">Rain</label>
+                    <input type="number" id="rain" required>
+                </div>
+                <div>
+                    <label for="ffmc">FFMC</label>
+                    <input type="number" id="ffmc" required>
+                </div>
+                <div>
+                    <label for="dmc">DMC</label>
+                    <input type="number" id="dmc" required>
+                </div>
+                <div>
+                    <label for="dc">DC</label>
+                    <input type="number" id="dc" required>
+                </div>
+                <div>
+                    <label for="isi">ISI</label>
+                    <input type="number" id="isi" required>
+                </div>
+                <div>
+                    <label for="bui">BUI</label>
+                    <input type="number" id="bui" required>
+                </div>
+                <div>
+                    <label for="fwi">FWI</label>
+                    <input type="number" id="fwi" required>
+                </div>
             </div>
             <button type="submit">Predict</button>
         </form>
+        
         <h3 id="result"></h3>
         <!-- 🔥 Right Info Box - Two Column Layout -->
 <div class="info-box">
