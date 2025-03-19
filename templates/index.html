@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Fire Prediction</title>
+    <style>
+        /* Background styling */
+        body {
+            background: url('https://media.wired.com/photos/611c1f573ba24d114a71681e/16:9/w_2400,h_1350,c_limit/Science_fire_GettyImages-539612713.gif') no-repeat center center/cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container box */
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1000px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ff4500;
+        }
+
+        /* Form layout */
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;  /* Prevent wrapping */
+            overflow-x: auto;  /* Allow scrolling on smaller screens */
+            gap: 5px;
+        }
+
+        .form-group input {
+            width: 12%;
+            min-width: 60px;
+            padding: 6px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        /* Predict button */
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #ff4500;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background: #ff3300;
+        }
+
+        /* Prediction result */
+        #result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* 🔥 Floating Info & Creator Boxes */
+.info-box {
+    position: fixed;
+    bottom: 40px;
+    width: 320px; /* Keeping the width consistent */
+    background: rgba(240, 240, 240, 0.9); /* Light background for better readability */
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.creator-box {
+    position: fixed;
+    bottom: 40px;
+    width: 150px; /* Keeping the width consistent */
+    background:rgba(240, 240, 240, 0.9); /* Light background for better readability */
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔽 Right Info Box */
+.info-box {
+    right: 20px;
+}
+
+/* 🔽 Left Creator Box */
+.creator-box {
+    left: 20px;
+}
+
+/* 🔽 Title Styling */
+.info-box h3, .creator-box h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: black;
+    font-weight: bold;
+}
+
+/* 🔽 Info Box Content - Two Columns */
+.info-box-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 10px;
+}
+
+/* 🔽 Creator Box - Single Column */
+.creator-box-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* 🔗 Links Styling */
+.info-box-content a {
+    color: black;
+    text-decoration: none;
+}
+
+.info-box-content a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Forest Fire Prediction</h2>
+        <form id="predictForm">
+            <div class="form-group">
+                <input type="number" id="temperature" placeholder="Temp" required>
+                <input type="number" id="rh" placeholder="RH" required>
+                <input type="number" id="ws" placeholder="Wind" required>
+                <input type="number" id="rain" placeholder="Rain" required>
+                <input type="number" id="ffmc" placeholder="FFMC" required>
+                <input type="number" id="dmc" placeholder="DMC" required>
+                <input type="number" id="dc" placeholder="DC" required>
+                <input type="number" id="isi" placeholder="ISI" required>
+                <input type="number" id="bui" placeholder="BUI" required>
+                <input type="number" id="fwi" placeholder="FWI" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        <h3 id="result"></h3>
+        <!-- 🔥 Right Info Box - Two Column Layout -->
+<div class="info-box">
+    <h3>🔥 Parameter Details</h3>
+    <div class="info-box-content">
+        <a href="https://en.wikipedia.org/wiki/Air_temperature" target="_blank"><strong>Temp:</strong> Air temp (°C)</a>
+        <a href="https://en.wikipedia.org/wiki/Humidity" target="_blank"><strong>RH:</strong> Humidity (%)</a>
+        <a href="https://en.wikipedia.org/wiki/Wind_speed" target="_blank"><strong>WS:</strong> Wind speed (km/h)</a>
+        <a href="https://en.wikipedia.org/wiki/Rain" target="_blank"><strong>Rain:</strong> Rainfall (mm)</a>
+        <a href="https://en.wikipedia.org/wiki/Fine_Fuel_Moisture_Code" target="_blank"><strong>FFMC:</strong> Fine fuel dryness</a>
+        <a href="https://en.wikipedia.org/wiki/Duff_Moisture_Code" target="_blank"><strong>DMC:</strong> Duff moisture</a>
+        <a href="https://en.wikipedia.org/wiki/Drought" target="_blank"><strong>DC:</strong> Drought level</a>
+        <a href="https://en.wikipedia.org/wiki/Initial_Spread_Index" target="_blank"><strong>ISI:</strong> Fire spread rate</a>
+        <a href="https://en.wikipedia.org/wiki/Buildup_Index" target="_blank"><strong>BUI:</strong> Fuel availability</a>
+        <a href="https://en.wikipedia.org/wiki/Fire_Weather_Index" target="_blank"><strong>FWI:</strong> Fire intensity</a>
+    </div>
+</div>
+
+<!-- 🔥 Left Creator Box - Single Column -->
+<div class="creator-box">
+    <h3>🔥 Creators</h3>
+    <div class="creator-box-content">
+        <div>• Atul Ranjan Jha</div>
+        <div>• Parth Bishnoi</div>
+        <div>• Aditya Singh</div>
+        <div>• Vishal Kumar</div>
+    </div>
+</div>
+
+    </div>
+
+    <script>
+        document.getElementById("predictForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const features = [
+                parseFloat(document.getElementById("temperature").value),
+                parseFloat(document.getElementById("rh").value),
+                parseFloat(document.getElementById("ws").value),
+                parseFloat(document.getElementById("rain").value),
+                parseFloat(document.getElementById("ffmc").value),
+                parseFloat(document.getElementById("dmc").value),
+                parseFloat(document.getElementById("dc").value),
+                parseFloat(document.getElementById("isi").value),
+                parseFloat(document.getElementById("bui").value),
+                parseFloat(document.getElementById("fwi").value)
+            ];
+
+            const response = await fetch("/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ features: features })
+            });
+
+            const result = await response.json();
+            document.getElementById("result").innerText = "Prediction: " + result.prediction;
+        });
+    </script>
+
+</body>
+</html>
