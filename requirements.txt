@@ -1,0 +1,4 @@
+Flask
+numpy
+pickle5  # Required for loading pickle files in some environments
+scikit-learn  # Needed for the scaler transform method
